@@ -1,9 +1,5 @@
-asciinema
 git
-tig
-mas
+coreutils
+gpg
 wget
-hub
-hugo
-yarn
-rbenv
+neovim

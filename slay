@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
 
+export LC_ALL=en_US.UTF-8
+
 ###############################################################################
 # ERROR: Let the user know if the script fails
 ###############################################################################
@@ -48,6 +50,7 @@ printf "
    ${dim}$(get_os) $(get_os_version) ${normal} // ${dim}$BASH ${normal} // ${dim}$BASH_VERSION${reset}
 "
 
+
 ###############################################################################
 # CHECK: Internet
 ###############################################################################
@@ -88,33 +91,35 @@ if [ ! -d "$HOME/.bin/" ]; then
 fi
 
 # -----------------------------------------------------------------------------
-# Bash-it
+# Download dotfiles
 # -----------------------------------------------------------------------------
-if [ -d "$HOME/.bash_it" ]; then
-	print_success_muted "Bash-it already installed. Skipping."
+if [ -d "$HOME/bin/dotfiles" ]; then
+	print_success_muted "dotfiles already installed. Skipping."
 else
-	step "Installing Bash-it…"
-	git clone --depth=1 https://github.com/Bash-it/bash-it.git ~/.bash_it
-	~/.bash_it/install.sh --silent --no-modify-config
-	print_success "Bash-it installed!"
+	step "Installing dotfiles…"
+	mkdir -p ~/bin/
+	git clone https://github.com/kwokhou/dotfiles.git ~/bin/dotfiles
+	print_success "dotfiles downloaded!"
 fi
 
+
 # -----------------------------------------------------------------------------
-# NVM
+# Asdf-vm
 # -----------------------------------------------------------------------------
-if [ -x nvm ]; then
-	step "Installing NVM…"
-	curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.33.11/install.sh | bash
-	print_success "NVM installed!"
-	step "Installing latest Node…"
-	nvm install node
-	nvm use node
-	nvm run node --version
-	nodev=$(node -v)
-	print_success "Using Node $nodev!"
+if [ -d "$HOME/.asdf" ]; then
+	print_success_muted "asdf-vm already installed. Skipping."
 else
-	print_success_muted "NVM/Node already installed. Skipping."
+	step "Installing asdf-vm…"
+	git clone --depth=1 https://github.com/Bash-it/bash-it.git ~/.bash_it
+	git clone https://github.com/asdf-vm/asdf.git ~/.asdf --branch v0.7.3
+	echo -e '\n. $HOME/.asdf/asdf.sh' >> ~/.zshrc
+	echo -e '\n. $HOME/.asdf/completions/asdf.bash' >> ~/.zshrc
+	echo -e '\nlegacy_version_file = yes' >> ~/.asdfrc
+	echo -e '' >> ~/.default-npm-packages
+	echo -e '\nbundler' >> ~/.default-gems
+	print_success "asdf-vm installed!"
 fi
+
 
 # -----------------------------------------------------------------------------
 # Homebrew
