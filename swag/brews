@@ -3,3 +3,6 @@ coreutils
 gpg
 wget
 neovim
+tmux
+ripgrep
+htop
