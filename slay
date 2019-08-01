@@ -105,6 +105,11 @@ print_success "Use column view in all Finder windows by default"
 defaults write com.apple.desktopservices DSDontWriteNetworkStores -bool true
 print_success "Avoiding the creation of .DS_Store files on network volumes"
 
+defaults write com.apple.TextEdit RichText -int 0
+# Open and save files as UTF-8 in TextEdit
+defaults write com.apple.TextEdit PlainTextEncoding -int 4
+defaults write com.apple.TextEdit PlainTextEncodingForWrite -int 4
+print_success "Use plain text mode and utf8 for new TextEdit"
 
 /usr/libexec/PlistBuddy -c "Set :DesktopViewSettings:IconViewSettings:arrangeBy grid" ~/Library/Preferences/com.apple.finder.plist
 /usr/libexec/PlistBuddy -c "Set :FK_StandardViewSettings:IconViewSettings:arrangeBy grid" ~/Library/Preferences/com.apple.finder.plist
