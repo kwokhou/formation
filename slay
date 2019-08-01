@@ -195,6 +195,18 @@ else
 	print_success "asdf-vm installed!"
 fi
 
+# -----------------------------------------------------------------------------
+# vim-plug
+# -----------------------------------------------------------------------------
+if [ -d "$HOME/.local/share/nvim/site/autoload/plug.vim" ]; then
+	print_success_muted "vim-plug already installed. Skipping."
+else
+	step "Download vim-plug"
+	curl -fLo $HOME/.local/share/nvim/site/autoload/plug.vim --create-dirs \
+		https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+	print_success "vim-plug installed!"
+fi
+
 
 # -----------------------------------------------------------------------------
 # Homebrew
