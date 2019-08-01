@@ -116,8 +116,10 @@ print_success "Use plain text mode and utf8 for new TextEdit"
 /usr/libexec/PlistBuddy -c "Set :StandardViewSettings:IconViewSettings:arrangeBy grid" ~/Library/Preferences/com.apple.finder.plist
 print_success "Enabling snap-to-grid for icons on the desktop and in other icon views"
 
+defaults write com.apple.finder _FXShowPosixPathInTitle -bool true
+print_success "Show full path in finder"
 
-defaults write com.apple.dock tilesize -int 36
+defaults write com.apple.dock tilesize -int 40
 print_success "Setting the icon size of Dock items to 36 pixels for optimal size/screen-realestate"
 
 defaults write com.apple.dock expose-animation-duration -float 0.1
@@ -177,26 +179,26 @@ if [ -d "$HOME/bin/dotfiles" ]; then
 	print_success_muted "dotfiles already installed. Skipping."
 else
 	step "Installing dotfiles…"
-	mkdir -p ~/bin/
-	git clone https://github.com/kwokhou/dotfiles.git ~/bin/dotfiles
+	mkdir -p $HOME/bin/
+	git clone https://github.com/kwokhou/dotfiles.git $HOME/bin/dotfiles
 	print_success "dotfiles downloaded!"
 fi
 
 
 # -----------------------------------------------------------------------------
-# Asdf-vm
+# asdf-vm
 # -----------------------------------------------------------------------------
 if [ -d "$HOME/.asdf" ]; then
 	print_success_muted "asdf-vm already installed. Skipping."
 else
 	step "Installing asdf-vm…"
-	git clone --depth=1 https://github.com/Bash-it/bash-it.git ~/.bash_it
-	git clone https://github.com/asdf-vm/asdf.git ~/.asdf --branch v0.7.3
-	echo -e '\n. $HOME/.asdf/asdf.sh' >> ~/.zshrc
-	echo -e '\n. $HOME/.asdf/completions/asdf.bash' >> ~/.zshrc
-	echo -e '\nlegacy_version_file = yes' >> ~/.asdfrc
-	echo -e '' >> ~/.default-npm-packages
-	echo -e '\nbundler' >> ~/.default-gems
+	git clone --depth=1 https://github.com/Bash-it/bash-it.git $HOME/.bash_it
+	git clone https://github.com/asdf-vm/asdf.git $HOME/.asdf --branch v0.7.3
+	echo -e '\n. $HOME/.asdf/asdf.sh' >> $HOME/.zshrc
+	echo -e '\n. $HOME/.asdf/completions/asdf.bash' >> $HOME/.zshrc
+	echo -e '\nlegacy_version_file = yes' >> $HOME/.asdfrc
+	echo -e '' >> $HOME/.default-npm-packages
+	echo -e '\nforeman' >> $HOME/.default-gems
 	print_success "asdf-vm installed!"
 fi
 
