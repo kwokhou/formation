@@ -8,3 +8,5 @@ tmux
 ripgrep
 htop
 watchman
+terminal-notifier
+the_silver_searcher
